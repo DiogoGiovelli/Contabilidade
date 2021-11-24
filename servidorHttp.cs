@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -76,8 +77,17 @@ class ServidorHttp
                if (textoRequisicao.Length > 0)
                {
                   Console.WriteLine($"\n{textoRequisicao}\n");
-                  //transfomando a pagina teste em uma sequencia de bytes
-                  var bytesConteudo = Encoding.UTF8.GetBytes(this.HtmlTeste,0,this.HtmlTeste.Length);
+                  
+                  if (textoRequisicao.Length > 0)
+                  {
+                     string[] linhas = textoRequisicao.Split("\r\n");
+                     string[] linha0 = linhas[0].Split(' ');
+                     string metodoHttp = linha0[0];
+                     string recursoBuscado = linha0[1];
+
+                  }
+
+                  var bytesConteudo = LerArquivo("/index.html");
                   //gerando um cabeçalho
                   var bytesCabecalho = GerarCabecalho("HTTP/1.1", "text/html;charset=utf-8",
                      "200", bytesConteudo.Length);
@@ -115,6 +125,17 @@ class ServidorHttp
       html.Append("<title>CONTABILIDADE pagina teste</title>");
       html.Append("<body><h1>Está é uma pagina teste</h1></body></html>");
       this.HtmlTeste = html.ToString();
+   }
+
+   public byte [] LerArquivo(string recurso)
+   {
+      string diretorio = "C:\\projetos\\Contabilidade\\www";
+      string caminhoArquivo = diretorio + recurso.Replace("/","\\");
+      if (File.Exists(caminhoArquivo))
+      {
+         return File.ReadAllBytes(caminhoArquivo);
+      }
+      else return new byte[0];
    }
 
 }
