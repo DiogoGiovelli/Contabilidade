@@ -1,0 +1,16 @@
+C:\projetos\Contabilidade\bin\Debug\net5.0\Contabilidade.exe
+C:\projetos\Contabilidade\bin\Debug\net5.0\Contabilidade.deps.json
+C:\projetos\Contabilidade\bin\Debug\net5.0\Contabilidade.runtimeconfig.json
+C:\projetos\Contabilidade\bin\Debug\net5.0\Contabilidade.runtimeconfig.dev.json
+C:\projetos\Contabilidade\bin\Debug\net5.0\Contabilidade.dll
+C:\projetos\Contabilidade\bin\Debug\net5.0\ref\Contabilidade.dll
+C:\projetos\Contabilidade\bin\Debug\net5.0\Contabilidade.pdb
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.csproj.AssemblyReference.cache
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.GeneratedMSBuildEditorConfig.editorconfig
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.AssemblyInfoInputs.cache
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.AssemblyInfo.cs
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.csproj.CoreCompileInputs.cache
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.dll
+C:\projetos\Contabilidade\obj\Debug\net5.0\ref\Contabilidade.dll
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.pdb
+C:\projetos\Contabilidade\obj\Debug\net5.0\Contabilidade.genruntimeconfig.cache
