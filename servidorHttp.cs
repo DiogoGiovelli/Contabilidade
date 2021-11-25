@@ -51,16 +51,15 @@ class ServidorHttp
    //Socket é um objeto comum pra comum para comunicação em rede
    //permite verificar e responder requisições 
    private async Task AguardarRequests()
-        {
-           while (true)
+      {
+        while (true)
            {
               Socket conexao = await this.Controlador.AcceptSocketAsync();
               this.QtdRequests++;
               //Chamando de forma assincrona o metodo ProcessarRequests
               Task task =Task.Run(() => ProcessarRequests(conexao, this.QtdRequests));
            }
-
-        }
+       }
 
    private void ProcessarRequests(Socket conexao, int numeroRequest)
         {
@@ -74,7 +73,7 @@ class ServidorHttp
                //convertendo o vetor em texto UTF8 e removendo os zeros desnecessarios
                string textoRequisicao = Encoding.UTF8.GetString(bytesRequisicao)
                                           .Replace((char)0, ' ').Trim();
-
+               string recursoBuscado = "index.hmtl";
                if (textoRequisicao.Length > 0)
                {
                   Console.WriteLine($"\n{textoRequisicao}\n");
@@ -83,7 +82,7 @@ class ServidorHttp
                      string[] linhas = textoRequisicao.Split("\r\n");
                      string[] linha0 = linhas[0].Split(' ');
                      string metodoHttp = linha0[0];
-                     string recursoBuscado = linha0[1];
+                     recursoBuscado = linha0[1];
                      string versaoHttp = linha0[2];
                      int espacoHost = linhas[1].IndexOf(' ');
                      string nomeHost = linhas[1].Substring(espacoHost + 1);
