@@ -10,6 +10,7 @@ class ServidorHttp
 
    //objeto TcpListenert é responsavel por ficar escuntando um porta do computador a espera de qualquer tipo de solitação TCP
    private TcpListener Controlador {get;set;}
+
    // porta que vai ser escultada
    private int Porta { get; set; }
 
@@ -77,26 +78,44 @@ class ServidorHttp
                if (textoRequisicao.Length > 0)
                {
                   Console.WriteLine($"\n{textoRequisicao}\n");
-                  
                   if (textoRequisicao.Length > 0)
                   {
                      string[] linhas = textoRequisicao.Split("\r\n");
                      string[] linha0 = linhas[0].Split(' ');
                      string metodoHttp = linha0[0];
                      string recursoBuscado = linha0[1];
+                     string versaoHttp = linha0[2];
+                     int espacoHost = linhas[1].IndexOf(' ');
+                     string nomeHost = linhas[1].Substring(espacoHost + 1);
+
+
+                     var bytesConteudo = LerArquivo(recursoBuscado);
+
+                     byte[] bytesCabecalho = null;
+                     if (bytesConteudo.Length > 0)
+                        {
+                           bytesCabecalho = GerarCabecalho(versaoHttp, "text/html;charset=utf-8","200", bytesConteudo.Length);
+                        }
+                     else
+                        {
+                           bytesConteudo = Encoding.UTF8.GetBytes("<h1> Erro 404 - Pagina não encontrada</h1>");
+                           bytesCabecalho = GerarCabecalho(versaoHttp, "text/html;charset=utf-8","404", bytesConteudo.Length);
+                        }
+                  //gerando um cabeçalho
+                     int bytesEnviados = conexao.Send(bytesCabecalho,bytesCabecalho.Length,0);
+                      bytesEnviados = conexao.Send(bytesConteudo,bytesConteudo.Length,0);
+
+                     //Fechando a conexão!!!
+                     conexao.Close();
+
+                     Console.WriteLine($"\n{bytesEnviados} bytes enviado em resposta a requisição #{numeroRequest}.");
+
 
                   }
 
-                  var bytesConteudo = LerArquivo("/index.html");
-                  //gerando um cabeçalho
-                  var bytesCabecalho = GerarCabecalho("HTTP/1.1", "text/html;charset=utf-8",
-                     "200", bytesConteudo.Length);
-                  int bytesEnviados = conexao.Send(bytesCabecalho,bytesCabecalho.Length,0);
-                  bytesEnviados = conexao.Send(bytesConteudo,bytesConteudo.Length,0);
+                  
 
-                  //Fechando a conexão!!!
-                  conexao.Close();
-                  Console.WriteLine($"\n{bytesEnviados} bytes enviado em resposta a requisição #{numeroRequest}.");
+
 
                }
 
